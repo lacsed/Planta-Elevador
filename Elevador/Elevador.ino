@@ -9,6 +9,9 @@ int DS_pin = 34;
 //PONTE H - MOTOR
 #define N1 37
 #define N2 35
+//#define N3 5
+//#define N4 6
+
 
 void setup() {
   //MOTOR INTERNO E SENSORES
