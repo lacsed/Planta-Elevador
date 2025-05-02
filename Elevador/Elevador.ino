@@ -1,3 +1,5 @@
+
+
 #include <Drive.h>
 #include <Stepper.h>
 #include <AccelStepper.h>
@@ -22,5 +24,12 @@ void setup() {
 }
 
 void loop() {
-  ligarMotor(1);
+  ligarDisplay(1);
+  delay(2000);
+  ligarDisplay(2);
+  delay(2000);
+  ligarDisplay(3);
+  delay(2000);
+  ligarDisplay(4);
+  delay(2000);
 }
