@@ -1,5 +1,4 @@
 //parar o motor:
-
 void pararMotor(){
   digitalWrite(N1, HIGH);
   digitalWrite(N2, HIGH);
