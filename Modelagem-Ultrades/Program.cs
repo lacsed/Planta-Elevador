@@ -11,13 +11,22 @@ class Program
         var especificacao_max = CriarEspecificacaoProibirSubidaDo4();
         var especificacao_min = CriarEspecificacaoProibirDescerDo1();
 
-        var Planta = motor.ParallelCompositionWith(andares);
-        var Especificacao = especificacao_max.ParallelCompositionWith(especificacao_min);
-        //var composicaoParalela = Planta.ParallelCompositionWith(Especificacao);
+        var PlantaElevador = motor.ParallelCompositionWith(andares);
+        var Especificacao_elevador = especificacao_max.ParallelCompositionWith(especificacao_min);
+        //var composicaoParalela = PlantaElevador.ParallelCompositionWith(Especificacao_elevador);
+
+        var PlantaPorta = CriarPlantaPorta();
+        var especificacao_movimentar = CriarEspecificacaoPortaFechadaSubir();
+        var especificacao_abrir = CriarEspecificacaoAbrirPorta();
+        var Especificacao_porta = especificacao_abrir.ParallelCompositionWith(especificacao_movimentar);
+
+        var planta = PlantaElevador.ParallelCompositionWith(PlantaPorta);
+
+        foreach (var s in planta.Transitions) { Console.WriteLine(s); }
 
         var Supervisor = DeterministicFiniteAutomaton.MonolithicSupervisor(
-            new[] { motor, andares },
-            new[] { especificacao_max, especificacao_min },
+            new[] { motor, andares, PlantaPorta },
+            new[] { especificacao_max, especificacao_min, especificacao_movimentar, especificacao_abrir },
             true);
 
         motor.ShowAutomaton("Motor");
@@ -25,8 +34,7 @@ class Program
         especificacao_max.ShowAutomaton("Especificacao_Seguranca_AndarMaximo4");
         especificacao_min.ShowAutomaton("Especificacao_Seguranca_AndarMinimo1");
 
-        Planta.ShowAutomaton("Elevador");
-        Especificacao.ShowAutomaton("Especificacao");
+        planta.ShowAutomaton("PlantaElevador");
         Supervisor.ShowAutomaton("Supervisor-Monolitico");
     }
 
