@@ -9,17 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Planta.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Planta.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="UltraDES" Version="2.2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\source\repos\arduino-generator\PFC_Final.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="INOresult\" />
   </ItemGroup>
 
 </Project>

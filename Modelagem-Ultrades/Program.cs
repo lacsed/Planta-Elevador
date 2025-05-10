@@ -1,6 +1,8 @@
 ﻿using UltraDES;
-using UltraDES.Diagnosability;
-using UltraDES.Opacity;
+using PFC_Final;
+using System.Reflection.Emit;
+using System.Numerics;
+using System.Reflection;
 
 class Program
 {
@@ -29,13 +31,13 @@ class Program
             new[] { especificacao_max, especificacao_min, especificacao_movimentar, especificacao_abrir },
             true);
 
-        motor.ShowAutomaton("Motor");
-        andares.ShowAutomaton("Andares");
-        especificacao_max.ShowAutomaton("Especificacao_Seguranca_AndarMaximo4");
-        especificacao_min.ShowAutomaton("Especificacao_Seguranca_AndarMinimo1");
 
         planta.ShowAutomaton("PlantaElevador");
         Supervisor.ShowAutomaton("Supervisor-Monolitico");
+
+        INOGenerator.ConvertDEStoINO(
+            new[] { motor, andares, PlantaPorta }.ToList(), 
+            new[] { Supervisor }.ToList());
     }
 
     // Função que cria o autômato do motor (subir, descer, parar)
