@@ -43,13 +43,13 @@ class Program
     // Função que cria o autômato do motor (subir, descer, parar)
     static DeterministicFiniteAutomaton CriarMotor()
     {
-        var P = new State("P", Marking.Marked);
-        var S = new State("S", Marking.Unmarked);
-        var D = new State("D", Marking.Unmarked);
+        var P = new State("PARADO", Marking.Marked);
+        var S = new State("SUBINDO", Marking.Unmarked);
+        var D = new State("DESCENDO", Marking.Unmarked);
 
-        var s = new Event("s", Controllability.Controllable);
-        var d = new Event("d", Controllability.Controllable);
-        var p = new Event("p", Controllability.Controllable);
+        var s = new Event("subir", Controllability.Controllable);
+        var d = new Event("descer", Controllability.Controllable);
+        var p = new Event("parar", Controllability.Controllable);
 
         var transicoes = new[]
         {
@@ -63,17 +63,17 @@ class Program
         };
 
         var motor = new DeterministicFiniteAutomaton(transicoes, P, "Motor");
-        motor.ShowAutomaton("Motor");
+        //motor.ShowAutomaton("Motor");
         return motor;
     }
 
     // Função que cria o autômato dos andares (1 a 4)
     static DeterministicFiniteAutomaton CriarAndares()
     {
-        var andar1 = new State("1", Marking.Marked);
-        var andar2 = new State("2", Marking.Marked);
-        var andar3 = new State("3", Marking.Marked);
-        var andar4 = new State("4", Marking.Marked);
+        var andar1 = new State("ANDAR_1", Marking.Marked);
+        var andar2 = new State("ANDAR_2", Marking.Marked);
+        var andar3 = new State("ANDAR_3", Marking.Marked);
+        var andar4 = new State("ANDAR_4", Marking.Marked);
 
         var s_1 = new Event("s_1", Controllability.Uncontrollable); 
         var s_2 = new Event("s_2", Controllability.Uncontrollable); 
@@ -102,16 +102,16 @@ class Program
     static DeterministicFiniteAutomaton CriarEspecificacaoProibirSubidaDo4()
     {
         // Estados
-        var j = new State("~4", Marking.Marked); // não é o andar 4
-        var andar4 = new State("4", Marking.Marked);
+        var j = new State("OUTRO", Marking.Marked); // não é o andar 4
+        var andar4 = new State("ULTIMO_ANDAR", Marking.Marked);
 
         var s_1 = new Event("s_1", Controllability.Uncontrollable);
         var s_2 = new Event("s_2", Controllability.Uncontrollable);
         var s_3 = new Event("s_3", Controllability.Uncontrollable);
         var s_4 = new Event("s_4", Controllability.Uncontrollable);
-        var s = new Event("s", Controllability.Controllable);
-        var d = new Event("d", Controllability.Controllable);
-        var p = new Event("p", Controllability.Controllable);
+        var s = new Event("subir", Controllability.Controllable);
+        var d = new Event("descer", Controllability.Controllable);
+        var p = new Event("parar", Controllability.Controllable);
 
         var transicoes = new[]
         {
@@ -133,16 +133,16 @@ class Program
     static DeterministicFiniteAutomaton CriarEspecificacaoProibirDescerDo1()
     {
         // Estados
-        var j = new State("~1", Marking.Marked); // onde i ∈ {1,2,3}
-        var andar1 = new State("1", Marking.Marked);
+        var j = new State("OUTRO", Marking.Marked); // onde i ∈ {1,2,3}
+        var andar1 = new State("PRIMEIRO_ANDAR", Marking.Marked);
 
         var s_1 = new Event("s_1", Controllability.Uncontrollable);
         var s_2 = new Event("s_2", Controllability.Uncontrollable);
         var s_3 = new Event("s_3", Controllability.Uncontrollable);
         var s_4 = new Event("s_4", Controllability.Uncontrollable);
-        var s = new Event("s", Controllability.Controllable);
-        var d = new Event("d", Controllability.Controllable);
-        var p = new Event("p", Controllability.Controllable);
+        var s = new Event("subir", Controllability.Controllable);
+        var d = new Event("descer", Controllability.Controllable);
+        var p = new Event("parar", Controllability.Controllable);
 
         var transicoes = new[]
         {
