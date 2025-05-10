@@ -150,4 +150,82 @@ class Program
         var e1 = new DeterministicFiniteAutomaton(transicoes, andar1, "Especificacao_Seguranca_AndarMinimo1");
         return e1;
     }
+
+
+    // Função que cria o autômato da porta (aberta, fechada)
+    static DeterministicFiniteAutomaton CriarPlantaPorta()
+    {
+        var Fechada = new State("FECHADA", Marking.Marked);
+        var Aberta = new State("ABERTA", Marking.Unmarked);
+
+        var abrir = new Event("abrir_porta", Controllability.Controllable);
+        var fechar = new Event("fechar_porta", Controllability.Uncontrollable);
+
+        var transicoes = new[]
+        {
+            new Transition(Fechada, abrir, Aberta),
+            new Transition(Aberta, fechar, Fechada),
+            new Transition(Aberta, abrir, Aberta),
+            new Transition(Fechada, fechar, Fechada)
+        };
+
+        var Porta = new DeterministicFiniteAutomaton(transicoes, Fechada, "Porta");
+        //Porta.ShowAutomaton("Porta");
+        return Porta;
+    }
+
+    // Função que cria a Especificação que só pode mover o elevador com a porta fechada
+    static DeterministicFiniteAutomaton CriarEspecificacaoPortaFechadaSubir()
+    {
+        var Fechada = new State("FECHADA", Marking.Marked);
+        var Aberta = new State("ABERTA", Marking.Unmarked);
+
+        var abrir = new Event("abrir_porta", Controllability.Controllable);
+        var fechar = new Event("fechar_porta", Controllability.Uncontrollable);
+        var s = new Event("subir", Controllability.Controllable);
+        var d = new Event("descer", Controllability.Controllable);
+
+        var transicoes = new[]
+        {
+            new Transition(Fechada, abrir, Aberta),
+            new Transition(Aberta, fechar, Fechada),
+            new Transition(Aberta, abrir, Aberta),
+            new Transition(Fechada, s, Fechada),
+            new Transition(Fechada, d, Fechada),
+            new Transition(Fechada, fechar, Fechada)
+        };
+
+        var Porta = new DeterministicFiniteAutomaton(transicoes, Fechada, "Porta_e1");
+        //Porta.ShowAutomaton("Porta_e1");
+        return Porta;
+    }
+
+    // Função que cria a Especificação que só pode abrir a porta quando o elevador estiver parado
+    static DeterministicFiniteAutomaton CriarEspecificacaoAbrirPorta()
+    {
+        var Parado = new State("PARADO", Marking.Marked);
+        var Movendo = new State("MOVENDO", Marking.Unmarked);
+
+        var abrir = new Event("abrir_porta", Controllability.Controllable);
+        var fechar = new Event("fechar_porta", Controllability.Uncontrollable);
+        var s = new Event("subir", Controllability.Controllable);
+        var d = new Event("descer", Controllability.Controllable);
+        var p = new Event("parar", Controllability.Controllable);
+
+        var transicoes = new[]
+        {
+            new Transition(Parado, abrir, Parado),
+            new Transition(Parado, d, Movendo),
+            new Transition(Parado, s, Movendo),
+            new Transition(Movendo, p, Parado),
+            new Transition(Parado, p, Parado),
+            new Transition(Movendo, d, Movendo),
+            new Transition(Movendo, s, Movendo),
+        };
+
+        var Porta = new DeterministicFiniteAutomaton(transicoes, Parado, "Porta_e2");
+        //Porta.ShowAutomaton("Porta_e2");
+        return Porta;
+    }
+
 }
