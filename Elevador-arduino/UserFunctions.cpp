@@ -1,6 +1,8 @@
 #include "Automaton.h"
 #include "motor.h"
 #include "botoes.h"
+#include "display.h"
+#include "leds.h"
 #include "globals.h"
 
 void setupPin()

@@ -1,4 +1,5 @@
 #include "botoes.h"
+#include "globals.h"
 
 void configurarBotoes(){
   //BOTÕES PAINEL INTERNO:

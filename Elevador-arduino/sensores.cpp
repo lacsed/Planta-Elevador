@@ -1,3 +1,4 @@
+#include "globals.h"
 
 void atualizarAndarAtual() {
   int andar = verificarAndarAtual(); // retorna 1 a 4
