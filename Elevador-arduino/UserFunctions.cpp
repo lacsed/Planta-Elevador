@@ -4,6 +4,8 @@
 #include "display.h"
 #include "leds.h"
 #include "globals.h"
+#include "latch74HC595.h"
+
 
 void setupPin()
 {

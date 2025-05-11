@@ -1,3 +1,6 @@
+#include "latch74HC595.h"
+#include "gloabals.h"
+
 void atualizaSaida(){
   digitalWrite(STCP_pin, LOW);
   shiftOut(DS_pin, SHCP_pin, MSBFIRST, _LED[2]);
