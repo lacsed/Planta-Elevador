@@ -1,6 +1,6 @@
-#include "botoes.h"
-#include "leds.h"
-#include "globals.h"
+#include "include/botoes.h"
+#include "include/leds.h"
+#include "include/globals.h"
 
 void configurarBotoes(){
   //BOTÕES PAINEL INTERNO:

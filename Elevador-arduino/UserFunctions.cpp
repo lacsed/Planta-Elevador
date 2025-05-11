@@ -1,12 +1,12 @@
-#include "Automaton.h"
-#include "globals.h"
-#include "motor.h"
-#include "botoes.h"
-#include "sensores.h"
-#include "latch-74HC595.h"
-#include "display7seg.h"
-#include "leds.h"
-#include "controle-movimento.h"
+#include "include/Automaton.h"
+#include "include/botoes.h"
+#include "include/controle-movimento.h"
+#include "include/display7seg.h"
+#include "include/globals.h"
+#include "include/latch-74HC595.h"
+#include "include/leds.h"
+#include "include/motor.h"
+#include "include/sensores.h"
 
 void setupPin()
 {

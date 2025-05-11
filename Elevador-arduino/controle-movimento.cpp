@@ -1,5 +1,5 @@
-#include "controle-movimento.h"
-#include "globals.h"
+#include "include/controle-movimento.h"
+#include "include/globals.h"
 
 
 int decidirMovimento() { //subir 0 , descer 1, nada parar 2, -1 erro

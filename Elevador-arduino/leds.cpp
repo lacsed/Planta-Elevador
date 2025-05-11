@@ -1,7 +1,6 @@
-#include "globals.h"
-#include "leds.h"
-
-#include "latch-74HC595.h"
+#include "include/globals.h"
+#include "include/leds.h"
+#include "include/latch-74HC595.h"
 
 
 //ligar determinado led

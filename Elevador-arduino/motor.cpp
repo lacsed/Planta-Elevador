@@ -1,5 +1,5 @@
-#include "motor.h"
-#include "globals.h"
+#include "include/motor.h"
+#include "include/globals.h"
 
 //parar o motor:
 void pararMotor(){

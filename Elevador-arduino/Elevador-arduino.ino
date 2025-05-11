@@ -1,5 +1,5 @@
-#include "Automaton.h"
-#include "Event.h"
+#include "include/Automaton.h"
+#include "include/Event.h"
 
 // Define the number of automatons
 #define NUMBER_AUTOMATON 3

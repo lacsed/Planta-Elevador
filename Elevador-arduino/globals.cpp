@@ -1,4 +1,4 @@
-#include "globals.h"
+#include "include/globals.h"
 
 bool andarAtual[5] = { false, false, false, false, false };
 int STCP_pin = 32;

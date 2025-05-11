@@ -1,7 +1,7 @@
 #include <Arduino.h>
-#include "latch-74HC595.h"
-#include "display7seg.h"
-#include "globals.h"
+#include "include/latch-74HC595.h"
+#include "include/display7seg.h"
+#include "include/globals.h"
 
 char displayLed[5]{B00000000,//Apagado
                   B00110000,//1

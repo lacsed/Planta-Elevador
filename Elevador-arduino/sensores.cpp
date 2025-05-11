@@ -1,5 +1,5 @@
-#include "globals.h"
-#include "sensores.h"
+#include "include/globals.h"
+#include "include/sensores.h"
 
 
 void atualizarAndarAtual() {

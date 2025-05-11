@@ -1,5 +1,5 @@
-#include "Automaton.h"
-#include "Event.h"
+#include "include/Automaton.h"
+#include "include/Event.h"
 
 Automaton::Automaton(int numStates, Event *enabledEventStates, int (*MakeTransition)(int state, Event eventOccurred), void (*Loop)(int state))
     : numStates(numStates), enabledEventStates(enabledEventStates), MakeTransition(MakeTransition), Loop(Loop) {}
