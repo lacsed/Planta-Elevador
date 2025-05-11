@@ -1,5 +1,17 @@
 #include "Automaton.h"
 
+//PONTE H - MOTOR
+#define N1 37
+#define N2 35
+//#define N3 5
+//#define N4 6
+
+//Motor e leds
+int STCP_pin = 32;
+int SHCP_pin = 30;
+int DS_pin = 34;
+byte _LED[3] = {0x00, 0x00, 0x00}; // todos os LEDs desligados
+
 #define BUZZER_PIN 7  // ou qualquer pino que você esteja usando
 
 unsigned long portaAbertaTimerStart = 0; // 0 indica "ainda não iniciado"
@@ -13,7 +25,7 @@ void setupPin()
 }
 
 // This function will be called every Arduino loop, put here something that you want to repeat always
-void doEveryLoop(){
+void doEveryLoop(){ //--------------- TODO
 /*
     Example of reading events through the Serial port
 
@@ -31,19 +43,20 @@ void doEveryLoop(){
 }
 
 // This set of functions should be implemented in a way to handle the controllable events of the system
-bool EventControllable_subir(){
+bool EventControllable_subir(){ //--------------- TODO
 	return false;
 }
 
 bool EventControllable_parar(){
+	return pararNoAndarAtual();
+}
+
+bool EventControllable_descer(){ //--------------- TODO
 	return false;
 }
 
-bool EventControllable_descer(){
-	return false;
-}
-
-bool EventControllable_abrir_porta(){
+bool EventControllable_abrir_porta(){ //--------------- TODO
+  // quando chega no andar solicitado eu tenho que abrir a porta 
 	return false;
 }
 
@@ -71,8 +84,8 @@ bool EventUncontrollable_fechar_porta(){
 {
   // Se o contador ainda não foi iniciado, não deve fechar a porta
   if (portaAbertaTimerStart == 0) {
-	return false;
-}
+    return false;
+  }
 
   // Calcula o tempo decorrido
   unsigned long tempoDecorrido = millis() - portaAbertaTimerStart;
@@ -140,7 +153,7 @@ void StateActionAutomaton1_AndaresState3() //Andar 4
 }
 
 void StateActionAutomaton2_PortaState0() // Porta fechada --------------- TOFIX pins leds da porta
-{
+{ 
    if (portaAbertaTimerStart != 0) {
     digitalWrite(BUZZER_PIN, HIGH);
     delay(1000);  // duração do bipe

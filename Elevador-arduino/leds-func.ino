@@ -12,6 +12,11 @@
 #define LED_P3_SOBE 14
 #define LED_P4_DESCE 15
 
+//led porta aberta
+#define LED_PORTA_ABERTA 8
+#define LED_PORTA_FECHADA 9
+
+
 //ACENDER LEDS INDIVIDUAIS:
 
 //ligar determinado led

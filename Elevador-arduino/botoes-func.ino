@@ -62,5 +62,6 @@ void desmarcarChamadaAndar(int andar){
   andarInterno[andar] = false;
   subir[andar] = false;
   descer[andar] = false;
+  desligarLedsDoAndar(andar);
 
 }
