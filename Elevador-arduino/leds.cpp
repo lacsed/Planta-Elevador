@@ -1,23 +1,4 @@
-//PAINEL-INTERNO
-#define LED_PI_4 23 //valor do ci+bit
-#define LED_PI_3 24// Numero composto por CI e Pino no CI, exemplo: CI=2 e PINO=Q4, LED=24;
-#define LED_PI_2 25
-#define LED_PI_1 26
-
-// Painel dos Andares 
-#define LED_P1_SOBE 27
-#define LED_P2_DESCE 11
-#define LED_P2_SOBE 12
-#define LED_P3_DESCE 13
-#define LED_P3_SOBE 14
-#define LED_P4_DESCE 15
-
-//led porta aberta
-#define LED_PORTA_ABERTA 8
-#define LED_PORTA_FECHADA 9
-
-
-//ACENDER LEDS INDIVIDUAIS:
+#include "globals.h"
 
 //ligar determinado led
 void ligarLed(int led){

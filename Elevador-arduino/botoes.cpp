@@ -1,28 +1,6 @@
-  // Definições dos pinos
-//PAINEL-INTERNO
-#define B1 23 //BOTAO 1 ANDAR
-#define B2 22 //BOTAO 2 ANDAR
-#define B3 25 //BOTAO 3 ANDAR
-#define B4 24 //BOTAO 4 ANDAR
+#include "botoes.h"
 
-//PAINEL 1º andar
-#define B1_PAINEL 27 //(subir
-//PAINEL 2º andar
-#define B2d_PAINEL 26 //(subir
-#define B2s_PAINEL 29 //(descer
-//PAINEL 3º andar
-#define B3d_PAINEL 31 //(descer
-#define B3s_PAINEL 33 //(subir
-//PAINEL 4º andar
-#define B4_PAINEL 28 //(descer
-
-// Arrays de marcação
-bool andarInterno[5] = { false, false, false, false, false };  // [1] = 1º andar, ..., [4] = 4º andar
-bool subir[5] = { false, false, false, false, false };                // [1] = subir do 1º, [2] = subir do 2º, [3] = subir do 3º
-bool descer[5] = { false, false, false, false , false};        // [4] = descer do 4º, [3] = descer do 3º, [2] = descer do 2º
-
-
-void setupBotoes(){
+void configurarBotoes(){
   //BOTÕES PAINEL INTERNO:
   pinMode(B1, INPUT);
   pinMode(B2, INPUT);

@@ -1,21 +1,12 @@
 #include "Automaton.h"
 #include "motor.h"
-
-
-//leds
-int STCP_pin = 32;
-int SHCP_pin = 30;
-int DS_pin = 34;
-byte _LED[3] = {0x00, 0x00, 0x00}; // todos os LEDs desligados
-
-#define BUZZER_PIN 7  // ou qualquer pino que você esteja usando
-
-unsigned long portaAbertaTimerStart = 0; // 0 indica "ainda não iniciado"
+#include "botoes.h"
+#include "globals.h"
 
 void setupPin()
 {
   setupLatch(); 
-  setupBotoes(); 
+  configurarBotoes(); 
   pinMode(BUZZER_PIN, OUTPUT);
   digitalWrite(BUZZER_PIN, LOW);
 }
