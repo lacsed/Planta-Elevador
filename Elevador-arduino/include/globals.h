@@ -73,4 +73,10 @@ extern bool descer[5];
 extern bool andarAtual[5];
 extern unsigned long portaAbertaTimerStart;
 
+// indica a direção atual do elevador
+extern bool subindo; // true: subindo, false: descendo 
+
+// vai pra true quando parar a porta, para habilitar  o evento "abrir"
+extern bool abrirPorta; 
+
 #endif

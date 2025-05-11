@@ -18,41 +18,48 @@ void setupPin()
 
 // This function will be called every Arduino loop, put here something that you want to repeat always
 void doEveryLoop(){ //--------------- TODO
-/*
-    Example of reading events through the Serial port
+  /*
+      Example of reading events through the Serial port
 
-    if (!Serial.available())
-    {
-        return;
-    }
+      if (!Serial.available())
+      {
+          return;
+      }
 
-    String input = Serial.readStringUntil('\n');
-    input.trim();
+      String input = Serial.readStringUntil('\n');
+      input.trim();
 
-    int actualEvent = input.toInt();
+      int actualEvent = input.toInt();
 
-*/
+  */
 }
 
 // This set of functions should be implemented in a way to handle the controllable events of the system
-bool EventControllable_subir(){ //--------------- TODO
-	return false;
+bool EventControllable_subir(){
+	if (decidirMovimento()==0){
+    return true;
+  }
+  return false;
 }
 
 bool EventControllable_parar(){
-	return pararNoAndarAtual();
+  if (decidirMovimento()==2){
+    return true;
+  }
+  return pararNoAndarAtual();
 }
 
 bool EventControllable_descer(){ //--------------- TODO
-	return false;
+		if (decidirMovimento()==1){
+    return true;
+  }
+  return false;
 }
 
 bool EventControllable_abrir_porta(){ //--------------- TODO
   // quando chega no andar solicitado eu tenho que abrir a porta 
-	return false;
+	return abrirPorta;
 }
-
-
 
 
 // This set of functions should be implemented in a way to handle the uncontrollable events of the system
@@ -95,8 +102,6 @@ bool EventUncontrollable_fechar_porta(){
 void StateActionAutomaton0_MotorState0() //parado
 {
   pararMotor();
-  int andar = verificarAndarAtual();
-  desmarcarChamadaAndar(andar);
 	Serial.println("A0S0: Parado");
  	delay(500);
 }
@@ -162,8 +167,13 @@ void StateActionAutomaton2_PortaState0() // Porta fechada --------------- TOFIX 
 
 void StateActionAutomaton2_PortaState1() //porta aberta --------------- TOFIX pins leds da porta
 {
-  // Inicia contador se ainda não tiver sido iniciado
+  
+  int andar = verificarAndarAtual();
+  desmarcarChamadaAndar(andar);
+
+  // No primeiro loop, Inicia contador se ainda não tiver sido iniciado
   if (portaAbertaTimerStart == 0) {
+    abrirPorta = false; //desativa a flag do evento 
     portaAbertaTimerStart = millis();
 
     // Apagar LED de porta fechada

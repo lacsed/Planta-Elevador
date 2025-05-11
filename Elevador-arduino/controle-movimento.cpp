@@ -1,33 +1,31 @@
 #include "include/controle-movimento.h"
 #include "include/globals.h"
+#include "include/sensores.h"
 
+enum Movimento {
+  SUBIR = 0,
+  DESCER = 1,
+  PARAR = 2,
+  ERRO = -1
+};
 
-int decidirMovimento() { //subir 0 , descer 1, nada parar 2, -1 erro
-  int andar = -1;
-  for (int i = 0; i < 4; i++) {
-    if (andarAtual[i]) {
-      andar = i;
-      break;
-    }
-  }
+// indica a direção atual do elevador
+extern bool subindo; // true: subindo, false: descendo 
 
-  if (andar == -1) {
+extern bool abrirPorta; // true: subindo, false: descendo 
+
+int decidirMovimento() {
+  int andarAtualElevador = verificarAndarAtual();
+
+  if (andarAtualElevador == 0) {
     Serial.println("Elevador: posição desconhecida.");
-    return -1;
+    return ERRO;
   }
 
   // Verificar chamadas acima
   bool temChamadaAcima = false;
-  for (int i = andar + 1; i < 4; i++) {
-    if (andarInterno[i]) {
-      temChamadaAcima = true;
-      break;
-    }
-    if (i < 3 && subir[i]) {
-      temChamadaAcima = true;
-      break;
-    }
-    if (i > 0 && descer[i - 1]) {
+  for (int i = andarAtualElevador + 1; i <= 4; i++) {
+    if (andarInterno[i] || subir[i] || descer[i]) {
       temChamadaAcima = true;
       break;
     }
@@ -35,45 +33,36 @@ int decidirMovimento() { //subir 0 , descer 1, nada parar 2, -1 erro
 
   // Verificar chamadas abaixo
   bool temChamadaAbaixo = false;
-  for (int i = andar - 1; i >= 0; i--) {
-    if (andarInterno[i]) {
-      temChamadaAbaixo = true;
-      break;
-    }
-    if (i < 3 && subir[i]) {
-      temChamadaAbaixo = true;
-      break;
-    }
-    if (i > 0 && descer[i - 1]) {
+  for (int i = andarAtualElevador - 1; i >= 1; i--) {
+    if (andarInterno[i] || subir[i] || descer[i]) {
       temChamadaAbaixo = true;
       break;
     }
   }
 
-  if (temChamadaAcima) {
+  // Decisão baseada nas chamadas e direção atual
+  if (temChamadaAcima && temChamadaAbaixo) {
+    Serial.print("Chamadas em ambas as direções. Continuar subindo? ");
+    Serial.println(subindo ? "SIM" : "NÃO");
+    return subindo ? SUBIR : DESCER;
+  } else if (temChamadaAcima) {
     Serial.println("Elevador deve SUBIR");
-    return 0;
+    return SUBIR;
   } else if (temChamadaAbaixo) {
     Serial.println("Elevador deve DESCER");
-    return 1;
+    return DESCER;
   } else {
     Serial.println("Elevador deve PARAR");
-    return 2;
+    return PARAR;
   }
 }
 
-bool pararNoAndarAtual() { // true , false 
-  int andar = -1;
+bool pararNoAndarAtual() { // true , false
 
   // Descobre em que andar está
-  for (int i = 0; i <= 4; i++) {
-    if (andarAtual[i]) {
-      andar = i;
-      break;
-    }
-  }
+  int andarAtualElevador = verificarAndarAtual();
 
-  if (andar == -1) {
+  if (andarAtualElevador == 0) {
     Serial.println("Posição do elevador desconhecida.");
     return false;
   }
@@ -81,23 +70,34 @@ bool pararNoAndarAtual() { // true , false
   bool chamada = false;
 
   // Verifica chamada no painel interno
-  if (andarInterno[andar]) chamada = true;
+  if (andarInterno[andarAtualElevador]) chamada = true;
 
-  // Verifica chamada de subida (se não for o 4º andar)
-  if (andar < 4 && subir[andar]) chamada = true;
+  if(decidirMovimento() == 2){
+    // to parado nesse andar pq nao tem nenhuma chamada ativa 
+    if (subir[andarAtualElevador] || descer[andarAtualElevador] ) chamada = true;
+  }
 
-  // Verifica chamada de descida (se não for o 1º andar)
-  if (andar > 1 && descer[andar - 1]) chamada = true;
+
+  if(subindo){
+    // Verifica chamada de subida, se tiver, para
+    if (subir[andarAtualElevador]) chamada = true;
+  }
+  else{
+    // Verifica chamada de descida (se não for o 1º andar)
+    if (descer[andarAtualElevador]) chamada = true;
+  }
+
 
   // Resposta
   if (chamada) {
     Serial.print("Parar no andar ");
-    Serial.print(andar);
+    Serial.print(andarAtualElevador);
     Serial.println(" para atender chamada.");
+    abrirPorta = true;
     return true;
   } else {
     Serial.print("Nenhuma chamada no andar ");
-    Serial.print(andar);
+    Serial.print(andarAtualElevador);
     Serial.println(". Continuar movimento.");
     return false;
   }

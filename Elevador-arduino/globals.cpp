@@ -9,3 +9,5 @@ bool andarInterno[5] = { false, false, false, false, false };
 bool subir[5] = { false, false, false, false, false };
 bool descer[5] = { false, false, false, false , false };
 unsigned long portaAbertaTimerStart = 0;
+bool subindo = true;
+bool abrirPorta = false; 
