@@ -1,12 +1,8 @@
 #ifndef MOTOR_H
 #define MOTOR_H
 
-// Inicialização dos pinos do motor
-void configurarPinosMotor();
-
-// Funções de controle do motor
-void subirMotor();
-void descerMotor();
+//parar o motor:
 void pararMotor();
+void ligarMotor(int num);
 
 #endif

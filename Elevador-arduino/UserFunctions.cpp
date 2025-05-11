@@ -1,11 +1,12 @@
 #include "Automaton.h"
+#include "globals.h"
 #include "motor.h"
 #include "botoes.h"
+#include "sensores.h"
+#include "latch-74HC595.h"
 #include "display7seg.h"
 #include "leds.h"
-#include "globals.h"
-#include "latch-74HC595.h"
-
+#include "controle-movimento.h"
 
 void setupPin()
 {
@@ -72,7 +73,6 @@ bool EventUncontrollable_s_4(){
 }
 
 bool EventUncontrollable_fechar_porta(){
-{
   // Se o contador ainda não foi iniciado, não deve fechar a porta
   if (portaAbertaTimerStart == 0) {
     return false;
