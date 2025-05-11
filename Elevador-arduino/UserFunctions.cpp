@@ -44,26 +44,38 @@ bool EventControllable_abrir_porta(){
 
 // This set of functions should be implemented in a way to handle the uncontrollable events of the system
 bool EventUncontrollable_s_1(){
-	return false;
+  return leitordeSensor(S1);
 }
 
 bool EventUncontrollable_s_2(){
-	return false;
+  return leitordeSensor(S2);
 }
 
 bool EventUncontrollable_s_3(){
-	return false;
+  return leitordeSensor(S3);
 }
 
 bool EventUncontrollable_s_4(){
-	return false;
+  return leitordeSensor(S4);
 }
 
 bool EventUncontrollable_fechar_porta(){
+{
+  // Se o contador ainda não foi iniciado, não deve fechar a porta
+  if (portaAbertaTimerStart == 0) {
 	return false;
 }
 
+  // Calcula o tempo decorrido
+  unsigned long tempoDecorrido = millis() - portaAbertaTimerStart;
 
+  // Verifica se passou de 10 segundos
+  if (tempoDecorrido > 10000) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 // Here the expected actions should be implemented in each state of the system 
 void StateActionAutomaton0_MotorState0()
