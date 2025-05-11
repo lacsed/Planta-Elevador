@@ -1,7 +1,15 @@
 #include "Automaton.h"
 
+#define BUZZER_PIN 7  // ou qualquer pino que você esteja usando
+
+unsigned long portaAbertaTimerStart = 0; // 0 indica "ainda não iniciado"
+
 void setupPin()
 {
+  setupLatch(); 
+  setupBotoes(); 
+  pinMode(BUZZER_PIN, OUTPUT);
+  digitalWrite(BUZZER_PIN, LOW);
 }
 
 // This function will be called every Arduino loop, put here something that you want to repeat always
@@ -131,14 +139,37 @@ void StateActionAutomaton1_AndaresState3() //Andar 4
  	delay(500);
 }
 
-void StateActionAutomaton2_PortaState0()
+void StateActionAutomaton2_PortaState0() // Porta fechada --------------- TOFIX pins leds da porta
 {
+   if (portaAbertaTimerStart != 0) {
+    digitalWrite(BUZZER_PIN, HIGH);
+    delay(1000);  // duração do bipe
+    portaAbertaTimerStart = 0;
+    // Apagar LED de porta aberta
+    digitalWrite(LED_PORTA_ABERTA, LOW);
+  }  
+
+  // Acender LED de porta fechada
+  digitalWrite(LED_PORTA_FECHADA, HIGH);
+
 	Serial.println("A2S0");
  	delay(500);
 }
 
-void StateActionAutomaton2_PortaState1()
+void StateActionAutomaton2_PortaState1() //porta aberta --------------- TOFIX pins leds da porta
 {
+  // Inicia contador se ainda não tiver sido iniciado
+  if (portaAbertaTimerStart == 0) {
+    portaAbertaTimerStart = millis();
+
+    // Apagar LED de porta fechada
+    digitalWrite(LED_PORTA_FECHADA, LOW);
+    Serial.println("Contador de porta aberta iniciado.");
+  }
+  
+  // Acender LED de porta aberta
+  digitalWrite(LED_PORTA_ABERTA, HIGH);
+
 	Serial.println("A2S1");
  	delay(500);
 }
