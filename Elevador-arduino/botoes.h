@@ -3,10 +3,8 @@
 
 // Função para configurar os pinos dos botões
 void configurarBotoes();
+void lerBotoes();
 
-// Função para ler os botões do painel interno e externo
-void lerBotoesPainelInterno();
-void lerBotoesSubir();
-void lerBotoesDescer();
+void desmarcarChamadaAndar(int andar);
 
 #endif

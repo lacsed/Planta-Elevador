@@ -1,4 +1,5 @@
 #include "botoes.h"
+#include "leds.h"
 #include "globals.h"
 
 void configurarBotoes(){
