@@ -1,12 +1,8 @@
 #include "Automaton.h"
+#include "motor.h"
 
-//PONTE H - MOTOR
-#define N1 37
-#define N2 35
-//#define N3 5
-//#define N4 6
 
-//Motor e leds
+//leds
 int STCP_pin = 32;
 int SHCP_pin = 30;
 int DS_pin = 34;
