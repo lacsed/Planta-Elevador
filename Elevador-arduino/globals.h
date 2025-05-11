@@ -42,12 +42,18 @@
 //#define N3 5
 //#define N4 6
 
+// sensor dos andares 
+#define S1 A0
+#define S2 A1
+#define S3 A2
+#define S4 A3
+bool andarAtual[5] = { false, false, false, false, false }; // [1]=1º andar, ..., [4]=4º andar
+
 //LEDS
 int STCP_pin = 32;
 int SHCP_pin = 30;
 int DS_pin = 34;
 byte _LED[3] = {0x00, 0x00, 0x00}; // todos os LEDs desligados
-
 
 // Arrays de marcação
 bool andarInterno[5] = { false, false, false, false, false };  // [1] = 1º andar, ..., [4] = 4º andar

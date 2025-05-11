@@ -1,9 +1,3 @@
-#define S1 A0
-#define S2 A1
-#define S3 A2
-#define S4 A3
-
-bool andarAtual[5] = { false, false, false, false, false }; // [0]=1º andar, ..., [3]=4º andar
 
 void atualizarAndarAtual() {
   int andar = verificarAndarAtual(); // retorna 1 a 4
