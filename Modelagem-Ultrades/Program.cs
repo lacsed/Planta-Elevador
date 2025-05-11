@@ -23,17 +23,19 @@ class Program
         var Especificacao_porta = especificacao_abrir.ParallelCompositionWith(especificacao_movimentar);
 
         var planta = PlantaElevador.ParallelCompositionWith(PlantaPorta);
+        var especificacao = Especificacao_elevador.ParallelCompositionWith(Especificacao_porta);
 
-        foreach (var s in planta.Transitions) { Console.WriteLine(s); }
+        //foreach (var s in planta.Transitions) { Console.WriteLine(s); }
 
         var Supervisor = DeterministicFiniteAutomaton.MonolithicSupervisor(
-            new[] { motor, andares, PlantaPorta },
-            new[] { especificacao_max, especificacao_min, especificacao_movimentar, especificacao_abrir },
+            new[] { andares, motor, PlantaPorta },
+            new[] { especificacao_max, especificacao_min, especificacao_abrir, especificacao_movimentar },
             true);
 
 
-        planta.ShowAutomaton("PlantaElevador");
-        Supervisor.ShowAutomaton("Supervisor-Monolitico");
+        //planta.ShowAutomaton("PlantaElevador");
+        //especificacao.ShowAutomaton("Especificacao");
+        //Supervisor.ShowAutomaton("Supervisor-Monolitico");
 
         INOGenerator.ConvertDEStoINO(
             new[] { motor, andares, PlantaPorta }.ToList(), 
@@ -43,9 +45,9 @@ class Program
     // Função que cria o autômato do motor (subir, descer, parar)
     static DeterministicFiniteAutomaton CriarMotor()
     {
-        var P = new State("PARADO", Marking.Marked);
-        var S = new State("SUBINDO", Marking.Unmarked);
-        var D = new State("DESCENDO", Marking.Unmarked);
+        var P = new State("P", Marking.Marked);
+        var S = new State("S", Marking.Unmarked);
+        var D = new State("D", Marking.Unmarked);
 
         var s = new Event("subir", Controllability.Controllable);
         var d = new Event("descer", Controllability.Controllable);
@@ -70,10 +72,10 @@ class Program
     // Função que cria o autômato dos andares (1 a 4)
     static DeterministicFiniteAutomaton CriarAndares()
     {
-        var andar1 = new State("ANDAR_1", Marking.Marked);
-        var andar2 = new State("ANDAR_2", Marking.Marked);
-        var andar3 = new State("ANDAR_3", Marking.Marked);
-        var andar4 = new State("ANDAR_4", Marking.Marked);
+        var andar1 = new State("A1", Marking.Marked);
+        var andar2 = new State("A2", Marking.Marked);
+        var andar3 = new State("A3", Marking.Marked);
+        var andar4 = new State("A4", Marking.Marked);
 
         var s_1 = new Event("s_1", Controllability.Uncontrollable); 
         var s_2 = new Event("s_2", Controllability.Uncontrollable); 
@@ -102,8 +104,8 @@ class Program
     static DeterministicFiniteAutomaton CriarEspecificacaoProibirSubidaDo4()
     {
         // Estados
-        var j = new State("OUTRO", Marking.Marked); // não é o andar 4
-        var andar4 = new State("ULTIMO_ANDAR", Marking.Marked);
+        var j = new State("X", Marking.Marked); // não é o andar 4
+        var andar4 = new State("FIM", Marking.Marked);
 
         var s_1 = new Event("s_1", Controllability.Uncontrollable);
         var s_2 = new Event("s_2", Controllability.Uncontrollable);
@@ -133,8 +135,8 @@ class Program
     static DeterministicFiniteAutomaton CriarEspecificacaoProibirDescerDo1()
     {
         // Estados
-        var j = new State("OUTRO", Marking.Marked); // onde i ∈ {1,2,3}
-        var andar1 = new State("PRIMEIRO_ANDAR", Marking.Marked);
+        var j = new State("X", Marking.Marked); // onde i ∈ {1,2,3}
+        var andar1 = new State("INI", Marking.Marked);
 
         var s_1 = new Event("s_1", Controllability.Uncontrollable);
         var s_2 = new Event("s_2", Controllability.Uncontrollable);
@@ -165,8 +167,8 @@ class Program
     // Função que cria o autômato da porta (aberta, fechada)
     static DeterministicFiniteAutomaton CriarPlantaPorta()
     {
-        var Fechada = new State("FECHADA", Marking.Marked);
-        var Aberta = new State("ABERTA", Marking.Unmarked);
+        var Fechada = new State("F", Marking.Marked);
+        var Aberta = new State("A", Marking.Unmarked);
 
         var abrir = new Event("abrir_porta", Controllability.Controllable);
         var fechar = new Event("fechar_porta", Controllability.Uncontrollable);
@@ -187,8 +189,8 @@ class Program
     // Função que cria a Especificação que só pode mover o elevador com a porta fechada
     static DeterministicFiniteAutomaton CriarEspecificacaoPortaFechadaSubir()
     {
-        var Fechada = new State("FECHADA", Marking.Marked);
-        var Aberta = new State("ABERTA", Marking.Unmarked);
+        var Fechada = new State("F", Marking.Marked);
+        var Aberta = new State("A", Marking.Unmarked);
 
         var abrir = new Event("abrir_porta", Controllability.Controllable);
         var fechar = new Event("fechar_porta", Controllability.Uncontrollable);
@@ -213,8 +215,8 @@ class Program
     // Função que cria a Especificação que só pode abrir a porta quando o elevador estiver parado
     static DeterministicFiniteAutomaton CriarEspecificacaoAbrirPorta()
     {
-        var Parado = new State("PARADO", Marking.Marked);
-        var Movendo = new State("MOVENDO", Marking.Unmarked);
+        var Parado = new State("P", Marking.Marked);
+        var Movendo = new State("D^S", Marking.Unmarked);
 
         var abrir = new Event("abrir_porta", Controllability.Controllable);
         var fechar = new Event("fechar_porta", Controllability.Uncontrollable);
