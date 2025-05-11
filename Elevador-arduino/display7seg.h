@@ -15,3 +15,5 @@ char displayLed[5]{B00000000,//Apagado
 void desligaDisplay();
 
 void ligarDisplay(int num);
+
+#endif

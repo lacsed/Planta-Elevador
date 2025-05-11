@@ -1,10 +1,10 @@
 #include "Automaton.h"
 #include "motor.h"
 #include "botoes.h"
-#include "display.h"
+#include "display7seg.h"
 #include "leds.h"
 #include "globals.h"
-#include "latch74HC595.h"
+#include "latch-74HC595.h"
 
 
 void setupPin()

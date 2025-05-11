@@ -1,5 +1,5 @@
-#include "latch74HC595.h"
-#include "gloabals.h"
+#include "latch-74HC595.h"
+#include "globals.h"
 
 void atualizaSaida(){
   digitalWrite(STCP_pin, LOW);

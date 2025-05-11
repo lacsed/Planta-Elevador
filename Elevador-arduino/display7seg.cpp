@@ -1,5 +1,5 @@
 #include "display7seg.h"
-#include "gloabals.h"
+#include "globals.h"
 
 //ACENDER O DISPLAY:
 
