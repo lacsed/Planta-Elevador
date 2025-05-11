@@ -77,22 +77,29 @@ bool EventUncontrollable_fechar_porta(){
   }
 }
 
+
+
 // Here the expected actions should be implemented in each state of the system 
-void StateActionAutomaton0_MotorState0()
+void StateActionAutomaton0_MotorState0() //parado
 {
-	Serial.println("A0S0");
+  pararMotor();
+  int andar = verificarAndarAtual();
+  desmarcarChamadaAndar(andar);
+	Serial.println("A0S0: Parado");
  	delay(500);
 }
 
-void StateActionAutomaton0_MotorState1()
+void StateActionAutomaton0_MotorState1() //subindo
 {
-	Serial.println("A0S1");
+  ligarMotor(0);
+	Serial.println("A0S1: Subindo");
  	delay(500);
 }
 
-void StateActionAutomaton0_MotorState2()
+void StateActionAutomaton0_MotorState2() // descendo 
 {
-	Serial.println("A0S2");
+  ligarMotor(1);
+	Serial.println("A0S2: Descendo");
  	delay(500);
 }
 
