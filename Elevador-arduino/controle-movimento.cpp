@@ -1,4 +1,8 @@
-int decidirMovimento() { //subir 0 , descer 1, nada,parar 2
+#include "controle-movimento.h"
+#include "globals.h"
+
+
+int decidirMovimento() { //subir 0 , descer 1, nada parar 2, -1 erro
   int andar = -1;
   for (int i = 0; i < 4; i++) {
     if (andarAtual[i]) {
@@ -9,7 +13,7 @@ int decidirMovimento() { //subir 0 , descer 1, nada,parar 2
 
   if (andar == -1) {
     Serial.println("Elevador: posição desconhecida.");
-    return;
+    return -1;
   }
 
   // Verificar chamadas acima
@@ -71,7 +75,7 @@ bool pararNoAndarAtual() { // true , false
 
   if (andar == -1) {
     Serial.println("Posição do elevador desconhecida.");
-    return;
+    return false;
   }
 
   bool chamada = false;
