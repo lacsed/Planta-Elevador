@@ -103,26 +103,30 @@ void StateActionAutomaton0_MotorState2() // descendo
  	delay(500);
 }
 
-void StateActionAutomaton1_AndaresState0()
+void StateActionAutomaton1_AndaresState0() //Andar 1
 {
+  ligarDisplay(1);
 	Serial.println("A1S0");
  	delay(500);
 }
 
-void StateActionAutomaton1_AndaresState1()
+void StateActionAutomaton1_AndaresState1() //Andar 2
 {
+  ligarDisplay(2);
 	Serial.println("A1S1");
  	delay(500);
 }
 
-void StateActionAutomaton1_AndaresState2()
+void StateActionAutomaton1_AndaresState2() //Andar 3
 {
+  ligarDisplay(3);
 	Serial.println("A1S2");
  	delay(500);
 }
 
-void StateActionAutomaton1_AndaresState3()
+void StateActionAutomaton1_AndaresState3() //Andar 4
 {
+  ligarDisplay(4);
 	Serial.println("A1S3");
  	delay(500);
 }
