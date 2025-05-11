@@ -1,5 +1,14 @@
+#include <Arduino.h>
+#include "latch-74HC595.h"
 #include "display7seg.h"
 #include "globals.h"
+
+char displayLed[5]{B00000000,//Apagado
+                  B00110000,//1
+                  B01101101,//2
+                  B01111001,//3
+                  B00110011//4
+                 };
 
 //ACENDER O DISPLAY:
 
