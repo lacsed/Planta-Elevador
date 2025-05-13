@@ -4,5 +4,6 @@
 //parar o motor:
 void pararMotor();
 void ligarMotor(int num);
+void setupMotor();
 
 #endif

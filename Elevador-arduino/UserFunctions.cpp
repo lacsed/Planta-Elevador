@@ -10,6 +10,7 @@
 
 void setupPin()
 {
+  setupMotor();
   setupLatch(); 
   configurarBotoes(); 
   pinMode(BUZZER_PIN, OUTPUT);

@@ -1,6 +1,15 @@
 #include "include/motor.h"
 #include "include/globals.h"
+#include "include/sensors.h"
 
+void setupMotor(){
+    pinMode(N1, OUTPUT);
+    pinMode(N2, OUTPUT);
+    while(verificarAndarAtual() != 1){
+      ligarMotor(1);
+    }
+    pararMotor();
+}
 //parar o motor:
 void pararMotor(){
   digitalWrite(N1, HIGH);
