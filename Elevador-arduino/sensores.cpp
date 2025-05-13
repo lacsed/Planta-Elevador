@@ -17,7 +17,7 @@ void atualizarAndarAtual() {
 }
 
 bool leitordeSensor(int sensor){
-  if (analogRead(sensor)> 800){
+  if (analogRead(sensor)> 500){
    return (true);
   } else {
    return(false);
