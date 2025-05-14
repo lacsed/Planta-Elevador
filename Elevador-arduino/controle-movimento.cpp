@@ -16,7 +16,7 @@ extern bool abrirPorta; // true: subindo, false: descendo
 
 int decidirMovimento() {
   int andarAtualElevador = 0;
-
+  
   //Serial.print("[");
   for (int i = 1; i <= 4; i++) {
     //Serial.print((andarInterno[i] || subir[i] || descer[i]));
@@ -73,7 +73,7 @@ bool pararNoAndarAtual() { // true , false
   int andarAtualElevador = verificarAndarAtual();
 
   if (andarAtualElevador == 0) {
-    Serial.println("Posição do elevador desconhecida.");
+   // Serial.Println("Posição do elevador desconhecida.");
     return false;
   }
 
@@ -81,12 +81,6 @@ bool pararNoAndarAtual() { // true , false
 
   // Verifica chamada no painel interno
   if (andarInterno[andarAtualElevador]) chamada = true;
-
-  if(decidirMovimento() == 2){
-    // to parado nesse andar pq nao tem nenhuma chamada ativa 
-    if (subir[andarAtualElevador] || descer[andarAtualElevador] ) chamada = true;
-  }
-
 
   if(subindo){
     // Verifica chamada de subida, se tiver, para
@@ -97,18 +91,20 @@ bool pararNoAndarAtual() { // true , false
     if (descer[andarAtualElevador]) chamada = true;
   }
 
-
-  // Resposta
-  if (chamada) {
-    Serial.print("Parar no andar ");
-    Serial.print(andarAtualElevador);
-    Serial.println(" para atender chamada.");
-    abrirPorta = true;
-    return true;
-  } else {
-    Serial.print("Nenhuma chamada no andar ");
-    Serial.print(andarAtualElevador);
-    Serial.println(". Continuar movimento.");
-    return false;
+  if(decidirMovimento() == 2){
+    //Serial.println(" to parado nesse andar pq nao tem nenhuma chamada ativa ");
+    if (subir[andarAtualElevador] || descer[andarAtualElevador] ) chamada = true;
   }
+    // Resposta
+    if (chamada) {
+        //Serial.println("Parar no andar para atender a chamada ");
+        // Serial.Print(andarAtualElevador);
+        // Serial.Println(" para atender chamada.");
+        return true;
+    } else {
+        // Serial.Print("Nenhuma chamada no andar ");
+        // Serial.Print(andarAtualElevador);
+        // Serial.Println(". Continuar movimento.");
+        return false;
+    }
 }
