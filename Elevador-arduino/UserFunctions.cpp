@@ -22,17 +22,17 @@ void doEveryLoop(){ //--------------- TODO
   lerBotoes();
   atualizarLedsChamadas();
   verificarAndarAtual();
-      }
+}
 
 // This set of functions should be implemented in a way to handle the controllable events of the system
 bool EventControllable_subir(){
-	if (decidirMovimento()==0){
+    if (decidirMovimento()==0){
         if(hab_motor_mover){
             Serial.print("s-");
-    return true;
-  }
+            return true;
+        }
     }
-  return false;
+    return false;
 }
 
 bool EventControllable_parar(){
@@ -44,13 +44,13 @@ bool EventControllable_parar(){
 }
 
 bool EventControllable_descer(){ //--------------- TODO
-		if (decidirMovimento()==1){
+    if (decidirMovimento()==1){      
         if(hab_motor_mover){
             Serial.print("d-");
-    return true;
-  }
+            return true;
+        }
     }
-  return false;
+    return false;
 }
 
 bool EventControllable_abrir_porta(){ //--------------- TODO
@@ -59,7 +59,7 @@ bool EventControllable_abrir_porta(){ //--------------- TODO
     Serial.print("a-");
     abrirPorta = false; //desativa a flag do evento
     return true;
-}
+  }
 	return false;
 }
 
@@ -71,7 +71,7 @@ bool EventUncontrollable_s_1(){
       Serial.print("s1-");
       evento_andares = false;
       return true;
-}
+    }
   }
   return false;
 }
@@ -82,7 +82,7 @@ bool EventUncontrollable_s_2(){
       Serial.print("s2-");
       evento_andares = false;
       return true;
-}
+    }
   }
   return false;
 }
@@ -93,7 +93,7 @@ bool EventUncontrollable_s_3(){
       Serial.print("s3-");
       evento_andares = false;
       return true;
-}
+    }
   }
   return false;
 }
@@ -104,7 +104,7 @@ bool EventUncontrollable_s_4(){
       Serial.print("s4-");
       evento_andares = false;
       return true;
-}
+    }
   }
   return false;
 }
@@ -117,22 +117,22 @@ bool EventUncontrollable_fechar_porta(){
 
   // Calcula o tempo decorrido
   unsigned long tempoDecorrido = millis() - portaAbertaTimerStart;
-
   // Verifica se passou de 10 segundos
   if (tempoDecorrido > 10000) {
+    Serial.print("f-");
     return true;
-  } else {
+  } 
+  else {
     return false;
-  }
+  }  
 }
-
 
 
 // Here the expected actions should be implemented in each state of the system 
 void StateActionAutomaton0_MotorState0() //parado
 {
     //Serial.println("A0S0: Parado");
-  pararMotor();
+    pararMotor();
     hab_motor_parar = false;
     hab_motor_mover = true;
     delay(10);
@@ -142,7 +142,7 @@ void StateActionAutomaton0_MotorState1() //subindo
 {
     //Serial.println("A0S1: Subindo");
     subindo = true;
-  ligarMotor(0);
+    ligarMotor(0);
     hab_motor_parar=true;
     hab_motor_mover = false;
     delay(10);
@@ -152,7 +152,7 @@ void StateActionAutomaton0_MotorState2() // descendo
 {
     //Serial.println("A0S2: Descendo");
     subindo = false;
-  ligarMotor(1);
+    ligarMotor(1);
     hab_motor_parar=true;
     hab_motor_mover = false;
     delay(10);
@@ -161,7 +161,7 @@ void StateActionAutomaton0_MotorState2() // descendo
 void StateActionAutomaton1_AndaresState0() //Andar 1
 {
     //Serial.println("A1S0: Andar 1");
-  ligarDisplay(1);
+    ligarDisplay(1);
     andarAtual[1] = true;
     andarAtual[2]= false;
     andarAtual[3]= false;
@@ -172,7 +172,7 @@ void StateActionAutomaton1_AndaresState0() //Andar 1
 void StateActionAutomaton1_AndaresState1() //Andar 2
 {
     //Serial.println("A1S1: Andar 2");
-  ligarDisplay(2);
+    ligarDisplay(2);
     andarAtual[1] = false;
     andarAtual[2]= true;
     andarAtual[3]= false;
@@ -183,7 +183,7 @@ void StateActionAutomaton1_AndaresState1() //Andar 2
 void StateActionAutomaton1_AndaresState2() //Andar 3
 {
     //Serial.println("A1S2: Andar 3");
-  ligarDisplay(3);
+    ligarDisplay(3);  
     andarAtual[1] = false;
     andarAtual[2]= false;
     andarAtual[3]= true;
@@ -194,7 +194,7 @@ void StateActionAutomaton1_AndaresState2() //Andar 3
 void StateActionAutomaton1_AndaresState3() //Andar 4
 {
     //Serial.println("A1S3: Andar 4");
-  ligarDisplay(4);
+    ligarDisplay(4);
     andarAtual[1] = false;
     andarAtual[2]= false;
     andarAtual[3]= false;
@@ -202,43 +202,42 @@ void StateActionAutomaton1_AndaresState3() //Andar 4
     delay(10);
 }
 
-void StateActionAutomaton2_PortaState0() // Porta fechada --------------- TOFIX pins leds da porta
+void StateActionAutomaton2_PortaState0() // Porta fechada 
 { 
-   if (portaAbertaTimerStart != 0) {
-    digitalWrite(BUZZER_PIN, HIGH);
-    delay(1000);  // duração do bipe
-    portaAbertaTimerStart = 0;
-    // Apagar LED de porta aberta
-    digitalWrite(LED_PORTA_ABERTA, LOW);
-  }  
+    //Serial.println("A2S0: Porta Fechada");
+    if (portaAbertaTimerStart != 0) {
+        // Apagar LED de porta aberta
+        desligarLed(LED_PORTA_ABERTA);
+        portaAbertaTimerStart = 0;
 
-  // Acender LED de porta fechada
-  digitalWrite(LED_PORTA_FECHADA, HIGH);
+        // Acender LED de porta fechada
+        ligarLed(LED_PORTA_FECHADA);
+    }  
 
-	Serial.println("A2S0");
- 	delay(500);
+    digitalWrite(BUZZER_PIN, LOW);
+    abrirPorta =true;
+    delay(10);
 }
 
-void StateActionAutomaton2_PortaState1() //porta aberta --------------- TOFIX pins leds da porta
+void StateActionAutomaton2_PortaState1() //porta aberta
 {
+    //Serial.println("A2S1: Aberta");
+
+    // No primeiro loop, Inicia contador se ainda não tiver sido iniciado
+    if (portaAbertaTimerStart == 0) {
+        portaAbertaTimerStart = millis();
+        //Serial.println("Contador de porta aberta iniciado.");
+
+        // Apagar LED de porta fechada
+        desligarLed(LED_PORTA_FECHADA);
   
-  int andar = verificarAndarAtual();
-  desmarcarChamadaAndar(andar);
+        // Acender LED de porta aberta
+        ligarLed(LED_PORTA_ABERTA);
+        digitalWrite(BUZZER_PIN, HIGH);
+    }
+    int andar = verificarAndarAtual();
+    desmarcarChamadaAndar(andar);
 
-  // No primeiro loop, Inicia contador se ainda não tiver sido iniciado
-  if (portaAbertaTimerStart == 0) {
-    abrirPorta = false; //desativa a flag do evento 
-    portaAbertaTimerStart = millis();
-
-    // Apagar LED de porta fechada
-    digitalWrite(LED_PORTA_FECHADA, LOW);
-    Serial.println("Contador de porta aberta iniciado.");
-  }
-  
-  // Acender LED de porta aberta
-  digitalWrite(LED_PORTA_ABERTA, HIGH);
-
-	Serial.println("A2S1");
- 	delay(500);
+    delay(10);
 }
 
