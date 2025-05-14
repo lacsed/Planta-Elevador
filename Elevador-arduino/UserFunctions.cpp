@@ -19,21 +19,10 @@ void setupPin()
 
 // This function will be called every Arduino loop, put here something that you want to repeat always
 void doEveryLoop(){ //--------------- TODO
-  /*
-      Example of reading events through the Serial port
-
-      if (!Serial.available())
-      {
-          return;
+  lerBotoes();
+  atualizarLedsChamadas();
+  verificarAndarAtual();
       }
-
-      String input = Serial.readStringUntil('\n');
-      input.trim();
-
-      int actualEvent = input.toInt();
-
-  */
-}
 
 // This set of functions should be implemented in a way to handle the controllable events of the system
 bool EventControllable_subir(){
@@ -173,29 +162,44 @@ void StateActionAutomaton1_AndaresState0() //Andar 1
 {
     //Serial.println("A1S0: Andar 1");
   ligarDisplay(1);
-	Serial.println("A1S0");
- 	delay(500);
+    andarAtual[1] = true;
+    andarAtual[2]= false;
+    andarAtual[3]= false;
+    andarAtual[4]= false;
+    delay(10);
 }
 
 void StateActionAutomaton1_AndaresState1() //Andar 2
 {
+    //Serial.println("A1S1: Andar 2");
   ligarDisplay(2);
-	Serial.println("A1S1");
- 	delay(500);
+    andarAtual[1] = false;
+    andarAtual[2]= true;
+    andarAtual[3]= false;
+    andarAtual[4]= false;
+    delay(10);
 }
 
 void StateActionAutomaton1_AndaresState2() //Andar 3
 {
+    //Serial.println("A1S2: Andar 3");
   ligarDisplay(3);
-	Serial.println("A1S2");
- 	delay(500);
+    andarAtual[1] = false;
+    andarAtual[2]= false;
+    andarAtual[3]= true;
+    andarAtual[4]= false;
+    delay(10);
 }
 
 void StateActionAutomaton1_AndaresState3() //Andar 4
 {
+    //Serial.println("A1S3: Andar 4");
   ligarDisplay(4);
-	Serial.println("A1S3");
- 	delay(500);
+    andarAtual[1] = false;
+    andarAtual[2]= false;
+    andarAtual[3]= false;
+    andarAtual[4]= true;
+    delay(10);
 }
 
 void StateActionAutomaton2_PortaState0() // Porta fechada --------------- TOFIX pins leds da porta
