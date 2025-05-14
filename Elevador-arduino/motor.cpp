@@ -1,6 +1,6 @@
 #include "include/motor.h"
 #include "include/globals.h"
-#include "include/sensors.h"
+#include "include/sensores.h"
 
 void setupMotor(){
     pinMode(N1, OUTPUT);

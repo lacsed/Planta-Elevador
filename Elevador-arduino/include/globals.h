@@ -36,8 +36,8 @@
 #define LED_P4_DESCE 15
 
 //led porta aberta
-#define LED_PORTA_ABERTA 8
-#define LED_PORTA_FECHADA 9
+#define LED_PORTA_ABERTA 21
+#define LED_PORTA_FECHADA 22
 
 // TODO definir esse pino 
 #define BUZZER_PIN 7  

@@ -37,5 +37,6 @@ int verificarAndarAtual(){
   if(leitordeSensor(S4)){
     return 4;
   }
+  evento_andares=true;
   return 0;
 }

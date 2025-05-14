@@ -11,3 +11,6 @@ bool descer[5] = { false, false, false, false , false };
 unsigned long portaAbertaTimerStart = 0;
 bool subindo = true;
 bool abrirPorta = false; 
+bool evento_andares = true; // true: o evento pode ocorrer, false: o evento ja ocorreu
+bool hab_motor_parar = true; // true: o evento pode ocorrer, false: o evento ja ocorreu
+bool hab_motor_mover = true; // true: o evento pode ocorrer, false: o evento ja ocorreu
