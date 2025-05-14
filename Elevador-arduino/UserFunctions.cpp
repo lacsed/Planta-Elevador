@@ -38,46 +38,86 @@ void doEveryLoop(){ //--------------- TODO
 // This set of functions should be implemented in a way to handle the controllable events of the system
 bool EventControllable_subir(){
 	if (decidirMovimento()==0){
+        if(hab_motor_mover){
+            Serial.print("s-");
+    return true;
+  }
+    }
+  return false;
+}
+
+bool EventControllable_parar(){
+  if ((pararNoAndarAtual() ||decidirMovimento()==2)&& hab_motor_parar){
+    Serial.print("p-");
     return true;
   }
   return false;
 }
 
-bool EventControllable_parar(){
-  if (decidirMovimento()==2){
-    return true;
-  }
-  return pararNoAndarAtual();
-}
-
 bool EventControllable_descer(){ //--------------- TODO
 		if (decidirMovimento()==1){
+        if(hab_motor_mover){
+            Serial.print("d-");
     return true;
   }
+    }
   return false;
 }
 
 bool EventControllable_abrir_porta(){ //--------------- TODO
   // quando chega no andar solicitado eu tenho que abrir a porta 
-	return abrirPorta;
+  if(abrirPorta && pararNoAndarAtual()){
+    Serial.print("a-");
+    abrirPorta = false; //desativa a flag do evento
+    return true;
+}
+	return false;
 }
 
 
 // This set of functions should be implemented in a way to handle the uncontrollable events of the system
 bool EventUncontrollable_s_1(){
-  return leitordeSensor(S1);
+  if(leitordeSensor(S1)){
+    if(evento_andares){
+      Serial.print("s1-");
+      evento_andares = false;
+      return true;
+}
+  }
+  return false;
 }
 
 bool EventUncontrollable_s_2(){
-  return leitordeSensor(S2);
+  if(leitordeSensor(S2)){
+    if(evento_andares){
+      Serial.print("s2-");
+      evento_andares = false;
+      return true;
+}
+  }
+  return false;
 }
 
 bool EventUncontrollable_s_3(){
-  return leitordeSensor(S3);
+  if(leitordeSensor(S3)){
+    if( evento_andares){
+      Serial.print("s3-");
+      evento_andares = false;
+      return true;
+}
+  }
+  return false;
 }
 
 bool EventUncontrollable_s_4(){
-  return leitordeSensor(S4);
+  if(leitordeSensor(S4)){
+    if(evento_andares){
+      Serial.print("s4-");
+      evento_andares = false;
+      return true;
+}
+  }
+  return false;
 }
 
 bool EventUncontrollable_fechar_porta(){
@@ -102,27 +142,36 @@ bool EventUncontrollable_fechar_porta(){
 // Here the expected actions should be implemented in each state of the system 
 void StateActionAutomaton0_MotorState0() //parado
 {
+    //Serial.println("A0S0: Parado");
   pararMotor();
-	Serial.println("A0S0: Parado");
- 	delay(500);
+    hab_motor_parar = false;
+    hab_motor_mover = true;
+    delay(10);
 }
 
 void StateActionAutomaton0_MotorState1() //subindo
 {
+    //Serial.println("A0S1: Subindo");
+    subindo = true;
   ligarMotor(0);
-	Serial.println("A0S1: Subindo");
- 	delay(500);
+    hab_motor_parar=true;
+    hab_motor_mover = false;
+    delay(10);
 }
 
 void StateActionAutomaton0_MotorState2() // descendo 
 {
+    //Serial.println("A0S2: Descendo");
+    subindo = false;
   ligarMotor(1);
-	Serial.println("A0S2: Descendo");
- 	delay(500);
+    hab_motor_parar=true;
+    hab_motor_mover = false;
+    delay(10);
 }
 
 void StateActionAutomaton1_AndaresState0() //Andar 1
 {
+    //Serial.println("A1S0: Andar 1");
   ligarDisplay(1);
 	Serial.println("A1S0");
  	delay(500);

@@ -79,4 +79,9 @@ extern bool subindo; // true: subindo, false: descendo
 // vai pra true quando parar a porta, para habilitar  o evento "abrir"
 extern bool abrirPorta; 
 
+extern bool evento_andares; // true: o evento pode ocorrer, false: o evento ja ocorreu
+extern bool hab_motor_parar; // true: o evento pode ocorrer, false: o evento ja ocorreu
+extern bool hab_motor_mover; // true: o evento pode ocorrer, false: o evento ja ocorreu
+
+
 #endif
