@@ -4,5 +4,6 @@
 void ligarLed(int led);
 void desligarLedsDoAndar(int andar);
 void desligarLed(int led);
+void atualizarLedsChamadas();
 
 #endif

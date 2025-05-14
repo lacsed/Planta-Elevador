@@ -41,3 +41,22 @@ void desligarLed(int led){
 
   atualizaSaida();
 }
+
+void atualizarLedsChamadas(){
+  desligarLedsDoAndar(1);
+  desligarLedsDoAndar(2);
+  desligarLedsDoAndar(3);
+
+    if (descer[2]) ligarLed(LED_P2_DESCE);
+    if (descer[3]) ligarLed(LED_P3_DESCE);
+    if (descer[4]) ligarLed(LED_P4_DESCE);
+
+    if (subir[1]) ligarLed(LED_P1_SOBE);
+    if (subir[2]) ligarLed(LED_P2_SOBE);
+    if (subir[3]) ligarLed(LED_P3_SOBE);
+
+    if (andarInterno[1]) ligarLed(LED_PI_1);
+    if (andarInterno[2]) ligarLed(LED_PI_2);
+    if (andarInterno[3]) ligarLed(LED_PI_3);
+    if (andarInterno[4]) ligarLed(LED_PI_4);
+}
