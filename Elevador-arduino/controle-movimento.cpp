@@ -15,10 +15,20 @@ extern bool subindo; // true: subindo, false: descendo
 extern bool abrirPorta; // true: subindo, false: descendo 
 
 int decidirMovimento() {
-  int andarAtualElevador = verificarAndarAtual();
+  int andarAtualElevador = 0;
+
+  //Serial.print("[");
+  for (int i = 1; i <= 4; i++) {
+    //Serial.print((andarInterno[i] || subir[i] || descer[i]));
+
+    if(andarAtual[i]){
+      andarAtualElevador = i;
+    }
+  }
+  //Serial.println("]");
 
   if (andarAtualElevador == 0) {
-    Serial.println("Elevador: posição desconhecida.");
+    //Serial.println("Elevador: posição desconhecida.");
     return ERRO;
   }
 
@@ -42,17 +52,17 @@ int decidirMovimento() {
 
   // Decisão baseada nas chamadas e direção atual
   if (temChamadaAcima && temChamadaAbaixo) {
-    Serial.print("Chamadas em ambas as direções. Continuar subindo? ");
-    Serial.println(subindo ? "SIM" : "NÃO");
+    //Serial.print("Chamadas em ambas as direções. Continuar subindo? ");
+    //Serial.println(subindo ? "SIM" : "NÃO");
     return subindo ? SUBIR : DESCER;
   } else if (temChamadaAcima) {
-    Serial.println("Elevador deve SUBIR");
+    //Serial.println("Elevador deve SUBIR");
     return SUBIR;
   } else if (temChamadaAbaixo) {
-    Serial.println("Elevador deve DESCER");
+    //Serial.println("Elevador deve DESCER");
     return DESCER;
   } else {
-    Serial.println("Elevador deve PARAR");
+    //Serial.println("Elevador deve PARAR");
     return PARAR;
   }
 }
