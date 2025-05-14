@@ -1,19 +1,19 @@
 #include "include/globals.h"
 #include "include/sensores.h"
 
-
-void atualizarAndarAtual() {
+void atualizarAndarAtual() { ///obsolete
   int andar = verificarAndarAtual(); // retorna 1 a 4
 
+  if(andar ==0 ) {
+    return; // Nenhum andar detectado
+  }
+
   // Zera todos os andares
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i <= 4; i++) {
     andarAtual[i] = false;
   }
 
-  // Marca o andar atual como true, se for válido
-  if (andar >= 1 && andar <= 4) {
-    andarAtual[andar] = true;
-  }
+  andarAtual[andar] = true; // Marca o andar atual como true
 }
 
 bool leitordeSensor(int sensor){

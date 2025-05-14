@@ -45,3 +45,12 @@ void desmarcarChamadaAndar(int andar){
   desligarLedsDoAndar(andar);
 
 }
+
+void atualizarLeds(int andar){
+  //acabei de chegar nesse andar, nao preciso mais atender ele
+  andarInterno[andar] = false;
+  subir[andar] = false;
+  descer[andar] = false;
+  desligarLedsDoAndar(andar);
+
+}
