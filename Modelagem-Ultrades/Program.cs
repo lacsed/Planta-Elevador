@@ -25,21 +25,21 @@ class Program
         var planta = PlantaElevador.ParallelCompositionWith(PlantaPorta);
         var especificacao = Especificacao_elevador.ParallelCompositionWith(Especificacao_porta);
 
-        //foreach (var s in planta.Transitions) { Console.WriteLine(s); }
-
         var Supervisor = DeterministicFiniteAutomaton.MonolithicSupervisor(
             new[] { andares, motor, PlantaPorta },
             new[] { especificacao_max, especificacao_min, especificacao_abrir, especificacao_movimentar },
             true);
 
 
-        //planta.ShowAutomaton("PlantaElevador");
-        //especificacao.ShowAutomaton("Especificacao");
-        //Supervisor.ShowAutomaton("Supervisor-Monolitico");
+        //PlantaElevador.ShowAutomaton("PlantaElevador");
+        //PlantaPorta.ShowAutomaton("PlantaPorta");
+        //Especificacao_elevador.ShowAutomaton("Especificacao-elevador");
+        //Especificacao_porta.ShowAutomaton("Especificacao-porta");
+        Supervisor.ShowAutomaton("Supervisor-Monolitico");
 
-        INOGenerator.ConvertDEStoINO(
-            new[] { motor, andares, PlantaPorta }.ToList(), 
-            new[] { Supervisor }.ToList());
+        //INOGenerator.ConvertDEStoINO(
+        //    new[] { motor, andares, PlantaPorta }.ToList(), 
+        //    new[] { Supervisor }.ToList());
     }
 
     // Função que cria o autômato do motor (subir, descer, parar)
@@ -59,9 +59,6 @@ class Program
             new Transition(S, p, P),
             new Transition(P, d, D),
             new Transition(D, p, P),
-            new Transition(D,d,D),
-            new Transition(S,s,S),
-            new Transition(P,p,P)
         };
 
         var motor = new DeterministicFiniteAutomaton(transicoes, P, "Motor");
@@ -84,15 +81,15 @@ class Program
 
         var transicoes = new[]
         {
-            new Transition(andar1, s_1, andar1),
+            //new Transition(andar1, s_1, andar1),
             new Transition(andar1, s_2, andar2),
-            new Transition(andar2, s_2, andar2),
+            //new Transition(andar2, s_2, andar2),
             new Transition(andar2, s_1, andar1),
             new Transition(andar2, s_3, andar3),
-            new Transition(andar3, s_3, andar3),
+            //new Transition(andar3, s_3, andar3),
             new Transition(andar3, s_2, andar2),
             new Transition(andar3, s_4, andar4),
-            new Transition(andar4, s_4, andar4),
+            //new Transition(andar4, s_4, andar4),
             new Transition(andar4, s_3, andar3)
         };
 
@@ -122,7 +119,6 @@ class Program
             new Transition(j, s_2, j),
             new Transition(j, s_3, j),
             new Transition(j, s, j),
-            new Transition(andar4, s_4, andar4),
             new Transition(andar4, s_3, j),
             new Transition(andar4, s_2, j),
             new Transition(andar4, s_1, j),
@@ -153,7 +149,6 @@ class Program
             new Transition(j, s_2, j),
             new Transition(j, s_3, j),
             new Transition(j, d, j),
-            new Transition(andar1, s_1, andar1),
             new Transition(andar1, s_3, j),
             new Transition(andar1, s_2, j),
             new Transition(andar1, s_4, j),
@@ -177,8 +172,6 @@ class Program
         {
             new Transition(Fechada, abrir, Aberta),
             new Transition(Aberta, fechar, Fechada),
-            new Transition(Aberta, abrir, Aberta),
-            new Transition(Fechada, fechar, Fechada)
         };
 
         var Porta = new DeterministicFiniteAutomaton(transicoes, Fechada, "Porta");
@@ -201,10 +194,8 @@ class Program
         {
             new Transition(Fechada, abrir, Aberta),
             new Transition(Aberta, fechar, Fechada),
-            new Transition(Aberta, abrir, Aberta),
             new Transition(Fechada, s, Fechada),
             new Transition(Fechada, d, Fechada),
-            new Transition(Fechada, fechar, Fechada)
         };
 
         var Porta = new DeterministicFiniteAutomaton(transicoes, Fechada, "Porta_e1");
@@ -230,7 +221,6 @@ class Program
             new Transition(Parado, d, Movendo),
             new Transition(Parado, s, Movendo),
             new Transition(Movendo, p, Parado),
-            new Transition(Parado, p, Parado),
             new Transition(Movendo, d, Movendo),
             new Transition(Movendo, s, Movendo),
         };
