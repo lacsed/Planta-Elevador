@@ -20,15 +20,31 @@ class Program
         var PlantaPorta = CriarPlantaPorta();
         var especificacao_movimentar = CriarEspecificacaoPortaFechadaSubir();
         var especificacao_abrir = CriarEspecificacaoAbrirPorta();
-        var Especificacao_porta = especificacao_abrir.ParallelCompositionWith(especificacao_movimentar);
+        var especificacao_chamada = CriarEspecificacaoAbrirPortaSolicitado();
+        var Especificacao_porta = especificacao_abrir
+            .ParallelCompositionWith(especificacao_movimentar)
+            .ParallelCompositionWith(especificacao_chamada);
 
         var planta = PlantaElevador.ParallelCompositionWith(PlantaPorta);
+
+        //////planta.showAutomaton("planca-composicao");
+
+        //Especificacao_elevador.ShowAutomaton("Especificacao-elevador");
+        //Especificacao_porta.ShowAutomaton("Especificacao-porta");
+
+
         var especificacao = Especificacao_elevador.ParallelCompositionWith(Especificacao_porta);
+
+        //especificacao.ShowAutomaton("Especificacao-completa"); 
 
         var Supervisor = DeterministicFiniteAutomaton.MonolithicSupervisor(
             new[] { andares, motor, PlantaPorta },
-            new[] { especificacao_max, especificacao_min, especificacao_abrir, especificacao_movimentar },
+            new[] { especificacao_max, especificacao_min, especificacao_abrir, especificacao_chamada, especificacao_movimentar },
             true);
+
+        //var modular = DeterministicFiniteAutomaton.LocalModularSupervisor(
+        //    new[] { andares, motor, PlantaPorta },
+        //    new[] { especificacao_max, especificacao_min, especificacao_abrir, especificacao_chamada, especificacao_movimentar });
 
 
         //PlantaElevador.ShowAutomaton("PlantaElevador");
@@ -36,6 +52,10 @@ class Program
         //Especificacao_elevador.ShowAutomaton("Especificacao-elevador");
         //Especificacao_porta.ShowAutomaton("Especificacao-porta");
         Supervisor.ShowAutomaton("Supervisor-Monolitico");
+        //foreach (var automaton in modular)
+        //{
+        //    automaton.ShowAutomaton($"Supervisor-Modular-{automaton.Name}");
+        //}
 
         //INOGenerator.ConvertDEStoINO(
         //    new[] { motor, andares, PlantaPorta }.ToList(), 
