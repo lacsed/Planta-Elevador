@@ -230,4 +230,34 @@ class Program
         return Porta;
     }
 
+    // Função que cria a Especificação que obriga abrir a porta ao chegar no andar solicitado
+    static DeterministicFiniteAutomaton CriarEspecificacaoAbrirPortaSolicitado()
+    {
+        var Espera = new State("Esp", Marking.Marked);
+        var Solicitado = new State("Sol", Marking.Unmarked);
+        var Atender = new State("At", Marking.Unmarked);
+
+        var abrir = new Event("abrir_porta", Controllability.Controllable);
+        var fechar = new Event("fechar_porta", Controllability.Uncontrollable);
+
+
+        var s = new Event("subir", Controllability.Controllable);
+        var d = new Event("descer", Controllability.Controllable);
+        var p = new Event("parar", Controllability.Controllable);
+
+        var transicoes = new[]
+        {
+            new Transition(Espera, p, Solicitado),
+            new Transition(Espera, s, Espera),
+            new Transition(Espera, d, Espera),
+            new Transition(Solicitado, abrir, Espera)
+            //new Transition(Solicitado, abrir, Atender),
+            //new Transition(Atender, fechar, Espera)
+        };
+
+        var Porta = new DeterministicFiniteAutomaton(transicoes, Espera, "Porta_e3");
+        Porta.ShowAutomaton("Porta_e3");
+        return Porta;
+    }
+
 }
