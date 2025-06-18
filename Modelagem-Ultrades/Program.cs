@@ -27,7 +27,7 @@ class Program
 
         var planta = PlantaElevador.ParallelCompositionWith(PlantaPorta);
 
-        //////planta.showAutomaton("planca-composicao");
+        //////planta.showAutomaton("planta-composicao");
 
         //Especificacao_elevador.ShowAutomaton("Especificacao-elevador");
         //Especificacao_porta.ShowAutomaton("Especificacao-porta");
@@ -57,10 +57,10 @@ class Program
         //    automaton.ShowAutomaton($"Supervisor-Modular-{automaton.Name}");
         //}
 
-        //INOGenerator.ConvertDEStoINO(
-        //    new[] { motor, andares, PlantaPorta }.ToList(), 
-        //    new[] { Supervisor }.ToList());
-    }
+    //    INOGenerator.ConvertDEStoINO(
+    //        new[] { motor, andares, PlantaPorta }.ToList(),
+    //        new[] { Supervisor }.ToList());
+    //}
 
     // Função que cria o autômato do motor (subir, descer, parar)
     static DeterministicFiniteAutomaton CriarMotor()
@@ -276,7 +276,7 @@ class Program
         };
 
         var Porta = new DeterministicFiniteAutomaton(transicoes, Espera, "Porta_e3");
-        Porta.ShowAutomaton("Porta_e3");
+        //Porta.ShowAutomaton("Porta_e3");
         return Porta;
     }
 
