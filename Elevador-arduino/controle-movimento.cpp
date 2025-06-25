@@ -82,17 +82,23 @@ bool pararNoAndarAtual() { // true , false
   // Verifica chamada no painel interno
   if (andarInterno[andarAtualElevador]) chamada = true;
 
+  // no andar 1 e 4 nao importa a orientação, como sao as pontas, vai atender quando chegar lá
+  if(andarAtualElevador == 1 || andarAtualElevador == 4){
+    if (subir[andarAtualElevador]) chamada = true;
+    if (descer[andarAtualElevador]) chamada = true;
+  }
+
   if(subindo){
-    // Verifica chamada de subida, se tiver, para
+    // Verifica chamada de subida, se tiver, atender
     if (subir[andarAtualElevador]) chamada = true;
   }
   else{
-    // Verifica chamada de descida (se não for o 1º andar)
+    // Verifica chamada de descida, se tiver, atender
     if (descer[andarAtualElevador]) chamada = true;
   }
 
   if(decidirMovimento() == 2){
-    //Serial.println(" to parado nesse andar pq nao tem nenhuma chamada ativa ");
+    // Verifica se tem quando eu to parado chegar alguma chamado, se tiver, atender
     if (subir[andarAtualElevador] || descer[andarAtualElevador] ) chamada = true;
   }
     // Resposta
